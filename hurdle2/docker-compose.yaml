@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  scoring:
+    image: itsb/sc2:phase1
+    working_dir: /phase1-hurdles/hurdle2
+    command: ./run_hurdle2.py
+    volumes:
+    - .:/phase1-hurdles/hurdle2
+    networks:
+      net:
+        ipv4_address: 172.16.252.10
+
+  solution:
+    image: itsb/sc2:phase1
+    working_dir: /phase1-hurdles/hurdle2
+    command: bash -c "sleep 5 && ./hurdle2_solution_stub_edited.py --hurdle2-scoring-host=172.16.252.10"
+    volumes:
+    - .:/phase1-hurdles/hurdle2
+    networks:
+      net:
+        ipv4_address: 172.16.252.11
+
+networks:
+  net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.252.0/24
+        gateway: 172.16.252.1

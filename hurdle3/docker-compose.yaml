@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  scoring:
+    image: itsb/sc2:phase1
+    working_dir: /phase1-hurdles/hurdle3
+    command: bash -c "sleep 5 && ./Hurdle3Scoring.py --host=172.16.253.11"
+    volumes:
+    - .:/phase1-hurdles/hurdle3
+    networks:
+      net:
+        ipv4_address: 172.16.253.10
+
+  solution:
+    image: itsb/sc2:phase1
+    working_dir: /phase1-hurdles/hurdle3
+    command: ./Hurdle3SolutionServer.py
+    volumes:
+    - .:/phase1-hurdles/hurdle3
+    networks:
+      net:
+        ipv4_address: 172.16.253.11
+
+networks:
+  net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.253.0/24
+        gateway: 172.16.253.1

@@ -99,3 +99,7 @@ ENV/
 # Pydev project settings
 .pydevproject
 
+# Phase1 temp files
+hurdle?/*.dat
+hurdle?/*.bin
+hurdle?/*.json
